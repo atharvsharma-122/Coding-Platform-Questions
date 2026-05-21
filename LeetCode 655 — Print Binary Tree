@@ -1,1 +1,50 @@
+import java.util.*;
 
+class Solution {
+    public List<List<String>> printTree(TreeNode root) {
+
+        int height = getHeight(root);
+        int width = (1 << height) - 1;
+
+        List<List<String>> result = new ArrayList<>();
+
+        for (int i = 0; i < height; i++) {
+            List<String> row = new ArrayList<>();
+
+            for (int j = 0; j < width; j++) {
+                row.add("");
+            }
+
+            result.add(row);
+        }
+
+        dfs(root, result, 0, 0, width - 1);
+
+        return result;
+    }
+
+    private void dfs(TreeNode node,
+                     List<List<String>> result,
+                     int row,
+                     int left,
+                     int right) {
+
+        if (node == null) return;
+
+        int mid = (left + right) / 2;
+
+        result.get(row).set(mid, String.valueOf(node.val));
+
+        dfs(node.left, result, row + 1, left, mid - 1);
+        dfs(node.right, result, row + 1, mid + 1, right);
+    }
+
+    private int getHeight(TreeNode node) {
+        if (node == null) return 0;
+
+        return 1 + Math.max(
+                getHeight(node.left),
+                getHeight(node.right)
+        );
+    }
+}
