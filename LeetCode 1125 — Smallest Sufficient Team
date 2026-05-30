@@ -1,1 +1,67 @@
+import java.util.*;
 
+class Solution {
+    public int[] smallestSufficientTeam(String[] req_skills,
+                                        List<List<String>> people) {
+
+        int n = req_skills.length;
+
+        Map<String, Integer> skillMap = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            skillMap.put(req_skills[i], i);
+        }
+
+        int[] personMask = new int[people.size()];
+
+        for (int i = 0; i < people.size(); i++) {
+
+            int mask = 0;
+
+            for (String skill : people.get(i)) {
+                if (skillMap.containsKey(skill)) {
+                    mask |= (1 << skillMap.get(skill));
+                }
+            }
+
+            personMask[i] = mask;
+        }
+
+        Map<Integer, List<Integer>> dp = new HashMap<>();
+        dp.put(0, new ArrayList<>());
+
+        for (int i = 0; i < people.size(); i++) {
+
+            Map<Integer, List<Integer>> temp =
+                    new HashMap<>(dp);
+
+            for (int mask : temp.keySet()) {
+
+                int newMask = mask | personMask[i];
+
+                List<Integer> team =
+                        new ArrayList<>(temp.get(mask));
+
+                team.add(i);
+
+                if (!dp.containsKey(newMask) ||
+                    dp.get(newMask).size() > team.size()) {
+
+                    dp.put(newMask, team);
+                }
+            }
+        }
+
+        int fullMask = (1 << n) - 1;
+
+        List<Integer> ans = dp.get(fullMask);
+
+        int[] result = new int[ans.size()];
+
+        for (int i = 0; i < ans.size(); i++) {
+            result[i] = ans.get(i);
+        }
+
+        return result;
+    }
+}
