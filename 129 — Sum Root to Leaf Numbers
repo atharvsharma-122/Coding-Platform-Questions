@@ -11,7 +11,7 @@ class Solution {
         if (node.left == null && node.right == null) {
             return curr;
         }
-
+     
         return dfs(node.left, curr) + dfs(node.right, curr);
     }
 }
