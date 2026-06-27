@@ -1,1 +1,25 @@
+class Solution {
+    Map<String, Integer> map = new HashMap<>();
+    List<TreeNode> result = new ArrayList<>();
 
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        serialize(root);
+        return result;
+    }
+
+    private String serialize(TreeNode root) {
+        if (root == null) {
+            return "#";
+        }
+
+        String s = root.val + "," + serialize(root.left) + "," + serialize(root.right);
+
+        map.put(s, map.getOrDefault(s, 0) + 1);
+
+        if (map.get(s) == 2) {
+            result.add(root);
+        }
+
+        return s;
+    }
+}
