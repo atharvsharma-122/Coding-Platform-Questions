@@ -17,7 +17,7 @@ class Solution {
                     result.clear();
                     result.add(list2[i]);
                     minSum = sum;
-                } else if (sum == minSum) {
+                } else if (sum == minSum) { 
                     result.add(list2[i]);
                 }
             }
