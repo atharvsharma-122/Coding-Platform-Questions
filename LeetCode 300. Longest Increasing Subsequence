@@ -16,7 +16,7 @@ class Solution {
                     right = mid;
                 }
             }
-
+ 
             tails[left] = num;
 
             if (left == size) {
