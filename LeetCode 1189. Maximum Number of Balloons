@@ -10,7 +10,7 @@ class Solution {
             Math.min(
                 Math.min(count['b' - 'a'], count['a' - 'a']),
                  Math.min(count['l' - 'a'] / 2, count['o' - 'a'] / 2)
-            ),
+            ), 
             count['n' - 'a']
         );
     }
