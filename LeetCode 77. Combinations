@@ -9,7 +9,7 @@ class Solution {
         if (current.size() == k) {
             result.add(new ArrayList<>(current));
             return;
-        }
+        } 
 
         for (int i = start; i <= n; i++) {
             current.add(i);
