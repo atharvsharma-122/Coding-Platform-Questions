@@ -1,0 +1,20 @@
+import java.util.*;
+
+class Solution {
+    public long maximumMedianSum(int[] nums) {
+        Arrays.sort(nums);
+
+        long ans = 0;
+        int n = nums.length;
+        int left = 0;
+        int right = n - 1;
+
+        while (left < right - 1) {
+            ans += nums[right - 1];
+            right -= 2;
+            left++;
+        }
+
+        return ans;
+    }
+}
