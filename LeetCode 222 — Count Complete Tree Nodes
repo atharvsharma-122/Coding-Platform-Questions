@@ -1,27 +1,25 @@
+import java.util.*;
+
 class Solution {
-    public int countNodes(TreeNode root) {
-        if (root == null) {
-            return 0;
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff) {
+        TreeSet<Long> set = new TreeSet<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            long num = nums[i];
+
+            Long ceiling = set.ceiling(num - valueDiff);
+
+            if (ceiling != null && ceiling <= num + valueDiff) {
+                return true;
+            }
+
+            set.add(num);
+
+            if (i >= indexDiff) {
+                set.remove((long) nums[i - indexDiff]);
+            }
         }
 
-        int leftHeight = getHeight(root.left);
-        int rightHeight = getHeight(root.right);
-
-        if (leftHeight == rightHeight) {
-            return (1 << leftHeight) + countNodes(root.right);
-        } else {
-            return (1 << rightHeight) + countNodes(root.left);
-        }
-    }
-
-    private int getHeight(TreeNode root) {
-        int height = 0;
-
-        while (root != null) {
-            height++;
-            root = root.left;
-        }
-
-        return height;
+        return false;
     }
 }
