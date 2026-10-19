@@ -2,20 +2,21 @@ class Solution {
     public long maximumValueSum(int[] nums, int k, int[][] edges) {
         long sum = 0;
         long minDiff = Long.MAX_VALUE;
-        int negativeCount = 0;
+        int count = 0;
 
         for (int num : nums) {
             int xorValue = num ^ k;
+
             sum += Math.max(num, xorValue);
 
-            if (xorValue < num) {
-                negativeCount++;
+            if (xorValue > num) {
+                count++;
             }
 
             minDiff = Math.min(minDiff, Math.abs((long) num - xorValue));
         }
 
-        if (negativeCount % 2 != 0) {
+        if (count % 2 != 0) {
             sum -= minDiff;
         }
 
