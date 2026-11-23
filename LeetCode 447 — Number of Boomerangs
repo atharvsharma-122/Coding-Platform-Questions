@@ -1,18 +1,16 @@
 class Solution:
-    def numberOfBoomerangs(self, points: List[List[int]]) -> int:
-        result = 0
+    def totalHammingDistance(self, nums: List[int]) -> int:
+        ans = 0
+        n = len(nums)
 
-        for x1, y1 in points:
-            distances = {}
+        for i in range(32):
+            ones = 0
 
-            for x2, y2 in points:
-                dx = x1 - x2
-                dy = y1 - y2
-                dist = dx * dx + dy * dy
+            for num in nums:
+                if num & (1 << i):
+                    ones += 1
 
-                distances[dist] = distances.get(dist, 0) + 1
+            zeros = n - ones
+            ans += ones * zeros
 
-            for count in distances.values():
-                result += count * (count - 1)
-
-        return result
+        return ans
